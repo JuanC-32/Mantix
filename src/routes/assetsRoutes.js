@@ -4,5 +4,6 @@ const assetsController = require('../controllers/assetsController');
 const router = express.Router();
 
 router.get('/', assetsController.listAssets);
+router.post('/', assetsController.createAsset);
 
 module.exports = router;
