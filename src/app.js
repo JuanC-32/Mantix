@@ -1,4 +1,5 @@
 const express = require('express');
+const assetsRoutes = require('./routes/assetsRoutes');
 
 const app = express();
 
@@ -12,5 +13,8 @@ app.get('/api/health', (req, res) => {
         message: 'Mantix API is running'
     });
 });
+
+// Rutas de equipos
+app.use('/api/assets', assetsRoutes);
 
 module.exports = app;
