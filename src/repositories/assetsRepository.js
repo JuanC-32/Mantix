@@ -31,4 +31,21 @@ async function findById(id) {
     return rows[0] ?? null;
 }
 
-module.exports = { findAll, create, findById };
+async function update(id, fields) {
+    const allowedColumns = {
+        asset_code: 'asset_code',
+        name: 'name',
+        description: 'description',
+        location: 'location'
+    };
+    const entries = Object.entries(fields);
+    const assignments = entries.map(([field]) => `${allowedColumns[field]} = ?`).join(', ');
+    const values = entries.map(([, value]) => value);
+
+    await database.execute(
+        `UPDATE assets SET ${assignments} WHERE id = ?`,
+        [...values, id]
+    );
+}
+
+module.exports = { findAll, create, findById, update };
